@@ -10,6 +10,6 @@
 
 # config/routes.yaml
 
-route:
-    path: /about/route
-    controller: App\Controller\AnnotationController::route
+#route:
+#    path: /about/route
+#    controller: App\Controller\AnnotationController::route
