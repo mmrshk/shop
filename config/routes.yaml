@@ -6,3 +6,10 @@
 #app_lucky_number:
  #   path: /lucky/number
  #   controller: App\Controller\LuckyController::number
+
+
+# config/routes.yaml
+
+route:
+    path: /about/route
+    controller: App\Controller\AnnotationController::route
