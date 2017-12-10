@@ -20,20 +20,20 @@ class CategoryController extends Controller
     /**
      * @Route("/category/{slug}/{page}", name="category_show", requirements={"page":"\d+"})
      *
-     * @param $slug
+     * @param $id
      * @param $page
      * @param $session
      *
      * @return Response
      */
-    public function show($slug, $page = 1, SessionInterface $session, Request $request)
+    public function show($id, $page = 1, SessionInterface $session, Request $request)
     {
-        $session->set('lastVisitedCategory',$slug);
+        $session->set('lastVisitedCategory',$id);
         $param = $request->query->get('param');
 
         return $this->render(
             'category/show.html.twig',
-            ['slug'=>$slug, 'page'=>$page, 'param'=>$param]);
+            ['id'=>$id, 'page'=>$page, 'param'=>$param]);
     }
     /**
     * @Route("message", name="category_message")
