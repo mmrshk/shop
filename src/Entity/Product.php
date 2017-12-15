@@ -33,6 +33,13 @@ class Product
      * @ORM\Column(type="text")
      */
     private $description;
+    /**
+     * @var Category;
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
+     * @ORM\JoinColumn(name="category_id", onDelete="CASCADE")
+     */
+    private $category;
 
     /**
      * @return mixed
@@ -101,6 +108,24 @@ class Product
     {
         $this->description = $description;
 
+        return $this;
+    }
+
+    /**
+     * @return Category
+     */
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Category $category
+     * @return Product
+     */
+    public function setCategory(Category $category): Product
+    {
+        $this->category = $category;
         return $this;
     }
     // add your own fields
