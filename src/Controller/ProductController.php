@@ -34,9 +34,9 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/products/{name}",name="product_list")
-     *
-     */
+ * @Route("/products/{name}",name="product_list")
+ *
+ */
     public function listProducts($name= '')
     {
         $repo = $this->getDoctrine()->getRepository(Product::class);

@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Category;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,23 +19,23 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class CategoryController extends Controller
 {
     /**
-     * @Route("/category/{slug}/{page}", name="category_show", requirements={"page":"\d+"})
+     * @Route("/category/{id}/{page}", name="category_show", requirements={"page":"\d+"})
      *
-     * @param $id
+     * @param Category $category
      * @param $page
      * @param $session
      *
      * @return Response
      */
-    public function show($id, $page = 1, SessionInterface $session, Request $request)
-    {
-        $session->set('lastVisitedCategory',$id);
-        $param = $request->query->get('param');
+     public function show(Category $category, $page = 1, SessionInterface $session)
+      {
+          $session->set('lastVisitedCategory',$category->getId());
 
-        return $this->render(
-            'category/show.html.twig',
-            ['id'=>$id, 'page'=>$page, 'param'=>$param]);
-    }
+          return $this->render(
+              'category/show.html.twig',
+              ['category'=>$category, 'page'=>$page]);
+      }
+
     /**
     * @Route("message", name="category_message")
      */
@@ -52,5 +53,22 @@ class CategoryController extends Controller
         $response = new Response();
         $response->setContent('Test content');
         return $response;
+    }
+    /**
+     * @Route("/categories",name="categories_list")
+     *
+     */
+    public function listCategories()
+    {
+        $repo = $this->getDoctrine()->getRepository(Category::class);
+
+        $categories = $repo->findAll();
+
+        if(!$categories)
+        {
+            throw $this->createNotFoundException('Categories not found');
+        }
+        return $this->render('category/list.html.twig',['categories'=> $categories]);
+
     }
 }
