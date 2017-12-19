@@ -1,12 +1,12 @@
-{%  extends 'base.html.twig' %}
-{%  block title %}
+{% extends 'base.html.twig' %}
+{% block title %}
     Категории - {{ parent() }}
-    {% endblock %}
+{% endblock %}
 {% block body %}
     {% for category in categories %}
         <a href="{{ path('category_show', {'slug':category.id}) }}">
-        {{ category.name }}
+            {{ category.name }}
         </a>
         <hr>
     {% endfor %}
-{%  endblock %}
+{% endblock %}
