@@ -14,3 +14,5 @@ framework:
     #fragments: ~
     php_errors:
         log: true
+    twig:
+        template: KnpMenuBundle::menu.html.twig
