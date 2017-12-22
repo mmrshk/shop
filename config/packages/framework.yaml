@@ -9,10 +9,11 @@ framework:
     session:
     #    # With this config, PHP's native session handling is used
         handler_id: ~
-
     #esi: ~
     #fragments: ~
     php_errors:
         log: true
-    twig:
-        template: KnpMenuBundle::menu.html.twig
+
+    translator: ~
+    templating:
+        engines: twig
