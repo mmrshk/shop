@@ -70,7 +70,7 @@ class Category
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ? string
     {
         return $this->name;
     }
@@ -88,7 +88,7 @@ class Category
     /**
      * @return string
      */
-    public function getSlug(): string
+    public function getSlug(): ? string
     {
         return $this->slug;
     }
@@ -97,7 +97,7 @@ class Category
      * @param string $slug
      * @return Category
      */
-    public function setSlug(string $slug): Category
+    public function setSlug(string $slug): ? Category
     {
         $this->slug = $slug;
         return $this;
@@ -106,7 +106,7 @@ class Category
     /**
      * @return Product[]|ArrayCollection
      */
-    public function getProducts(): Collection
+    public function getProducts(): ? Collection
     {
         return $this->products;
     }
@@ -122,13 +122,48 @@ class Category
         $this->products->removeElement($product);
         return $this;
     }
+
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     /**
-     * @var string
-     *
-     * @ORM\Column(type="decimal", scale=2)
+     * @return Category
      */
+    public function getParent(): ? Category
+    {
+        return $this->parent;
+    }
 
+    /**
+     * @param Category $parent
+     * @return Category
+     */
+    public function setParent(Category $parent): Category
+    {
+        $this->parent = $parent;
+        return $this;
+    }
 
+    /**
+     * @return Category[]|ArrayCollection
+     */
+    public function getSubcategories()
+    {
+        return $this->subcategories;
+    }
+
+    /**
+     * @param Category[]|ArrayCollection $subcategories
+     * @return Category
+     */
+    public function setSubcategories($subcategories)
+    {
+        $this->subcategories = $subcategories;
+        return $this;
+    }
 
 
 }

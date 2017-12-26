@@ -40,10 +40,39 @@ class Product
      * @ORM\JoinColumn(name="category_id", onDelete="CASCADE")
      */
     private $category;
-
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", options={"default" :false})
+     */
+    private $isTop;
     /**
      * @return mixed
      */
+     public function __construct()
+     {
+       return  $this->isTop;
+     }
+
+    /**
+     * @return bool
+     */
+    public function isTop(): bool
+    {
+        return $this->isTop;
+    }
+
+    /**
+     * @param bool $isTop
+     * @return Product
+     */
+    public function setIsTop(bool $isTop): Product
+    {
+        $this->isTop = $isTop;
+        return $this;
+    }
+
+
     public function getId()
     {
         return $this->id;
