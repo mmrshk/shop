@@ -7,6 +7,7 @@
  */
 namespace App\Controller;
 
+use App\Service\Catalogue;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -18,9 +19,9 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function show(SessionInterface $session)
+    public function show(Catalogue $catalogue)
     {
-        return $this->render('default/index.html.twig');
+        return $this->render('default/index.html.twig',['topProducts'=>$catalogue->getTopProducts()]);
     }
 
     /**

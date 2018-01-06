@@ -3,7 +3,7 @@ services:
         class: Sonata\BlockBundle\Exception\Filter\DebugOnlyFilter
         arguments: ["%kernel.debug%"]
         public: true
-    sonata.block.exception.renderer.throw:
+    sonata.block .exception.renderer.throw:
         class: Sonata\BlockBundle\Exception\Renderer\MonkeyThrowRenderer
         public: true
 
@@ -11,5 +11,12 @@ services:
         class: App\Admin\CategoryAdmin
         arguments: [~, App\Entity\Category, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Category }
+            - { name: sonata.admin,group: Catalog, manager_type: orm, label: Category List }
+        public: true
+
+    admin.product:
+        class: App\Admin\ProductAdmin
+        arguments: [~, App\Entity\Product, ~]
+        tags:
+            - { name: sonata.admin,group: Catalog, manager_type: orm, label: Product List }
         public: true
