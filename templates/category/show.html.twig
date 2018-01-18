@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-   Category
+  {{ category.name }}
 {% endblock %}
 {% block body %}
 
-    Category: {{ category.name }}<br>
-    Page:{{ page }}<br>
+   <h3>Категория: {{ category.name }}<br></h3>
+    Страница: {{ page }}<br>
 
     <div class="row">
         {% include 'patrials/products.html.twig' with {'products' : category.products} %}

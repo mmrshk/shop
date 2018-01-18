@@ -36,6 +36,7 @@ class AboutController extends Controller
                 'lastCategory'=> $session->get('lastVisitedCategory')
             ]);
     }
+
     /**
      * @Route("/to-about")
      */
@@ -64,7 +65,6 @@ class AboutController extends Controller
                 ->setTo(getenv('ADMIN_EMAIL'))
                 ->setBody(
                     $this->renderView(
-        // templates/emails/registration.html.twig
                         'about/message.html.twig',
                         array('feedback' => $feedback)
                     ),

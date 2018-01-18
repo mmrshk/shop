@@ -16,13 +16,13 @@ class ProductController extends Controller
      */
     public function index(EntityManagerInterface $em)
     {
-    $product = new Product();
-    $product->setName('Notebook')->setPrice(8999.99)->setDescription('Cool notebook PC');
+        $product = new Product();
+        $product->setName('Notebook')->setPrice(8999.99)->setDescription('Cool notebook PC');
 
-    $em->persist($product);
-    $em->flush();
+        $em->persist($product);
+        $em->flush();
 
-    return new Response('Product created');
+        return new Response('Product created');
     }
 
     /**
@@ -30,30 +30,28 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-         return $this->render('product/show.html.twig',['product'=> $product]);
+        return $this->render('product/show.html.twig', ['product' => $product]);
     }
 
     /**
      * @Route("/products/{name}",name="product_list")
      *
      */
-    public function listProducts($name= '')
+    public function listProducts($name = '', $description = '')
     {
         $repo = $this->getDoctrine()->getRepository(Product::class);
-        //$product = $repo->findOneBy(['name'=>$name]);
-        if($name) {
-            $products = $repo->findBy(['name' => $name], ['price' => 'DESC']);
-        }
-        else{
+        if ($name) {
+            $products = $repo->findBy(['name' => $name], ['price' => 'DESC'], ['description' => $description]);
+        } else {
             $products = $repo->findAll();
         }
-        if(!$products)
-        {
+        if (!$products) {
             throw $this->createNotFoundException('Products not found');
         }
-        return $this->render('product/list.html.twig',['products'=> $products]);
+        return $this->render('product/list.html.twig', ['products' => $products]);
 
     }
+
     /**
      * @Route("/product-update/{id}", name="product_update")
      */
@@ -61,8 +59,9 @@ class ProductController extends Controller
     {
         $product->setName('Laptop');
         $em->flush();
-        return $this->render('product/show.html.twig',['product'=> $product]);
+        return $this->render('product/show.html.twig', ['product' => $product]);
     }
+
     /**
      * @Route("/product-delete/{id}", name="product_delete")
      */
@@ -70,7 +69,7 @@ class ProductController extends Controller
     {
         $em->remove($product);
         $em->flush();
-        return $this->render('product/show.html.twig',['product'=> $product]);
+        return $this->render('product/show.html.twig', ['product' => $product]);
     }
 
 }
