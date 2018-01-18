@@ -32,19 +32,15 @@ class Orders
         $this->em = $em;
     }
 
-    public function  getCurrentOrder() : Order
+    public function getCurrentOrder(): Order
     {
         $id = $this->session->get('current_order_id');
-        if($id)
-        {
+        if ($id) {
             $order = $this->em->find(Order::class, $id);
-        }
-        else
-        {
+        } else {
             $order = null;
         }
-        if(!$order)
-        {
+        if (!$order) {
             $order = new Order();
             $this->em->persist($order);
             $this->em->flush();
@@ -58,22 +54,25 @@ class Orders
         $order = $this->getCurrentOrder();
         $existingItem = null;
 
-        foreach ($order->getItems() as $item)
-        {
-            if($item->getProduct()->getId() == $product->getId())
-            {
+        foreach ($order->getItems() as $item) {
+            if ($item->getProduct()->getId() == $product->getId()) {
                 $existingItem = $item;
                 break;
             }
         }
-        if(!$existingItem)
-        {
+        if (!$existingItem) {
             $existingItem = new OrderItem();
             $existingItem->setProduct($product);
             $order->addItems($existingItem);
             $this->em->persist($existingItem);
         }
         $existingItem->addCount($count);
+        $this->em->flush();
+    }
+
+    public function removeItem(OrderItem $item)
+    {
+        $this->em->remove($item);
         $this->em->flush();
     }
 }

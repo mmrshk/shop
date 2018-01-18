@@ -7,6 +7,7 @@
             <th>Цена</th>
             <th>Количество</th>
             <th>Стоимость</th>
+            <th></th>
         </tr>
         {# @var item App\Entity\OrderItem #}
         {% for item in order.items %}
@@ -15,12 +16,14 @@
                 <td>{{ item.product.price }}</td>
                 <td>{{ item.count }}</td>
                 <td>{{ item.amount }}</td>
+                <td><a href="{{ path('order_remove_item', {'id':item.id}) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
             </tr>
         {% endfor %}
         <tr>
             <td colspan="2">Всего</td>
             <td>{{ order.count }}</td>
             <td>{{ order.amount }}</td>
+            <td></td>
         </tr>
     </table>
 {% endblock %}
